@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-[#08090a] text-slate-200 antialiased selection:bg-indigo-500/30;
+  font-family: 'Inter', sans-serif;
+}
+
+
+.bg-grid-pattern {
+  background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, #000 70%, transparent 100%);
+}
+
+.btn-primary {
+  @apply relative overflow-hidden px-8 py-4 bg-white text-black rounded-full font-semibold 
+  transition-all duration-300 hover:scale-105 active:scale-95
+  hover:shadow-[0_0_30px_rgba(255,255,255,0.2)];
+}
+
+.btn-secondary {
+  @apply px-8 py-4 bg-white/5 border border-white/10 rounded-full font-semibold 
+      backdrop-blur-md transition-all duration-300 hover:bg-white/10 hover:border-white/20;
+}
+
+
+.bg-grid-pattern {
+    background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, #000 70%, transparent 100%);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50;
+  }
+
+  
+* {
+  cursor: none !important; /* Force hide the default cursor everywhere */
+}
+
+.cursor-trail {@apply fixed top-0 left-0 w-4 h-4 rounded-full bg-white pointer-events-none z-[9999];
+  mix-blend-mode: difference; /* Makes it visible against both dark and light areas */}
+
+  /* Override Solana Wallet Adapter Styles */
+.wallet-adapter-button {
+  @apply !h-10 !px-5 !rounded-full !text-sm !font-bold !transition-all !duration-300;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.wallet-adapter-button-trigger {
+  @apply !bg-white !text-black hover:!bg-slate-200 hover:!scale-105 active:!scale-95 !shadow-[0_0_20px_rgba(255,255,255,0.1)];
+}
+
+/* Hide the icon to keep it minimalist, or keep it if you prefer */
+.wallet-adapter-button .wallet-adapter-button-start-icon {
+  display: none !important;
+}
+
+/* Diagnostic: Add this to index.css */
+.wallet-adapter-button-trigger {
+  border: 2px solid red !important;
+  pointer-events: auto !important; /* Force clicks to register */
+}

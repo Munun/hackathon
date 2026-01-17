@@ -1,0 +1,9 @@
+# NLP & Text Processing
+spacy>=3.4.0
+
+# API Server (To connect with React)
+flask>=2.0.0
+flask-cors>=3.0.0
+
+# PDF Processing (Standard for reading medical PDFs)
+PyPDF2>=3.0.0
