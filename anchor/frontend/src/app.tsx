@@ -64,13 +64,7 @@ export default function App() {
               Researcher Portal
             </button>
   
-            {/* Dark Version Button: Patient/App */}
-            <button 
-              onClick={() => setView('patient')}
-              className="px-5 py-2 bg-white/5 border border-white/10 rounded-full text-sm font-medium hover:bg-white/10 hover:scale-105 transition-all active:scale-95 backdrop-blur-md"
-            >
-              {view === 'patient' ? '0x7f...8a2b' : 'Launch App'}
-            </button>
+            <WalletMultiButton />
           </div>
         </nav>
   
