@@ -1,6 +1,7 @@
 require("dotenv").config();
 const mongoose = require('mongoose');
 const uri = process.env.MONGODB_URI;
+const express = require('express');
 
 const { schema } = mongoose;
 
@@ -13,13 +14,15 @@ async function run() {
     await mongoose.connect(uri, clientOptions);
     await mongoose.connection.db.admin().command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await mongoose.disconnect();
+  } catch (error){
+    console.error("MongoDB connection error:", error);
+    process.exit(1); 
   }
 }
-run().catch(console.dir);
+run();
 
+// Serve static files
+app.use(express.static('public'));
 
 // 1. User Profile Schema
 const userProfileSchema = new mongoose.Schema({
@@ -120,3 +123,24 @@ const Match = mongoose.model('Match', matchSchema);
 
 // Export the models
 module.exports = { UserProfile, TrialMetadata, Match };
+
+
+// routes
+// API endpoint to handle form submission
+app.post('/api/upload-record', async (req, res) => {
+  try {
+    const userData = req.body;
+    
+    // Generate unique user_id from wallet address or create UUID
+    userData.user_id = userData.wallet_address;
+    
+    // Create new user profile
+    const userProfile = new UserProfile(userData);
+    await userProfile.save();
+    
+    res.json({ success: true, message: 'Record uploaded successfully' });
+  } catch (error) {
+    console.error('Error saving user profile:', error);
+    res.status(500).json({ error: 'Failed to save record' });
+  }
+});

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Medical Record - PharmaCluster</title>
+    <link rel="stylesheet" href="upload-record.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Upload Your Medical Record</h1>
+            <p>Enter your health information to match with clinical trials</p>
+        </header>
+
+        <form id="uploadForm">
+            <!-- Wallet Address -->
+            <section class="form-section">
+                <h2>Wallet Information</h2>
+                <div class="form-group">
+                    <label for="wallet_address">Solana Wallet Address *</label>
+                    <input type="text" id="wallet_address" name="wallet_address" required 
+                           placeholder="Enter your Solana public key">
+                </div>
+            </section>
+
+            <!-- Demographics -->
+            <section class="form-section">
+                <h2>Demographics</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="age_group">Age Group *</label>
+                        <select id="age_group" name="age_group" required>
+                            <option value="">Select age group</option>
+                            <option value="18-29">18-29</option>
+                            <option value="30-39">30-39</option>
+                            <option value="40-49">40-49</option>
+                            <option value="50-59">50-59</option>
+                            <option value="60-69">60-69</option>
+                            <option value="70+">70+</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender">Gender *</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Select gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Non-binary">Non-binary</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ethnicity">Ethnicity</label>
+                        <input type="text" id="ethnicity" name="ethnicity" 
+                               placeholder="e.g., Caucasian, Hispanic, Asian">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Medical Conditions -->
+            <section class="form-section">
+                <h2>Medical Conditions</h2>
+                <div class="form-group">
+                    <label for="medical_conditions">Medical Conditions</label>
+                    <textarea id="medical_conditions" name="medical_conditions" rows="4"
+                              placeholder="Enter your medical conditions, separated by commas (e.g., Type 2 Diabetes, Asthma, Hypertension)"></textarea>
+                    <small>Separate multiple conditions with commas</small>
+                </div>
+            </section>
+
+            <!-- Current Medications -->
+            <section class="form-section">
+                <h2>Current Medications</h2>
+                <div class="form-group">
+                    <label for="current_medications">Current Medications</label>
+                    <textarea id="current_medications" name="current_medications" rows="4"
+                              placeholder="Enter your current medications, separated by commas (e.g., Metformin, Lisinopril, Aspirin)"></textarea>
+                    <small>Separate multiple medications with commas</small>
+                </div>
+            </section>
+
+            <!-- Health Metrics -->
+            <section class="form-section">
+                <h2>Health Metrics</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bmi">BMI (Body Mass Index)</label>
+                        <input type="number" id="bmi" name="bmi" step="0.1" min="10" max="60"
+                               placeholder="e.g., 24.5">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="blood_pressure">Blood Pressure</label>
+                        <input type="text" id="blood_pressure" name="blood_pressure"
+                               placeholder="e.g., 120/80">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="last_hba1c_level">Last HbA1c Level (%)</label>
+                        <input type="number" id="last_hba1c_level" name="last_hba1c_level" 
+                               step="0.1" min="4" max="15"
+                               placeholder="e.g., 5.7">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Submit Button -->
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Submit Record</button>
+                <button type="reset" class="btn-secondary">Clear Form</button>
+            </div>
+        </form>
+
+        <!-- Success/Error Messages -->
+        <div id="message" class="message hidden"></div>
+    </div>
+
+    <script src="upload-record.js"></script>
+</body>
+</html>
