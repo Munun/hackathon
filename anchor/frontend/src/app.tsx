@@ -5,7 +5,7 @@ import PatientDash from './components/patientDash.tsx';
 import ResearcherAuth from './components/researcherAuth';
 import ResearcherDash from './components/researcherDash';
 import CustomCursor from './components/CustomCursor';
-import VisualThreeD from "./components/VisualThreeD.tsx";
+import { VisualThreeD } from "./components/VisualThreeD.tsx";
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
 // // Reusable Feature Card with Hover Effects
