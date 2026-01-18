@@ -95,7 +95,6 @@ export default function App() {
                             >
                                 Start Matching
                             </button>
-                            <WalletMultiButton className="btn-primary" />
                         </div>
                     </motion.div>
                     
