@@ -1,0 +1,91 @@
+{
+    "address": "GVqfSooq2k3ffoVfJm6NHP8B8PgetxqwNEEuDNZcHQ5z",
+    "metadata": {
+      "name": "pharma_trace",
+      "version": "0.1.0",
+      "spec": "0.1.0"
+    },
+    "instructions": [
+      {
+        "name": "sign_consent",
+        "discriminator": [137, 203, 56, 198, 16, 44, 25, 230],
+        "accounts": [
+          {
+            "name": "consent_record",
+            "writable": true,
+            "pda": {
+              "seeds": [
+                { "kind": "const", "value": [99, 111, 110, 115, 101, 110, 116] },
+                { "kind": "account", "path": "patient" }
+              ]
+            }
+          },
+          { "name": "patient", "writable": true, "signer": true },
+          { "name": "system_program", "address": "11111111111111111111111111111111" }
+        ],
+        "args": [
+          { "name": "agreement_hash", "type": { "array": ["u8", 32] } }
+        ]
+      },
+      {
+        "name": "reward_patient",
+        "discriminator": [16, 124, 214, 114, 178, 115, 200, 166],
+        "accounts": [
+          {
+            "name": "consent_record",
+            "writable": true,
+            "pda": {
+              "seeds": [
+                { "kind": "const", "value": [99, 111, 110, 115, 101, 110, 116] },
+                { "kind": "account", "path": "patient_wallet" }
+              ]
+            }
+          },
+          { "name": "vault_token_account", "writable": true },
+          { "name": "patient_token_account", "writable": true },
+          {
+            "name": "vault_authority",
+            "pda": {
+              "seeds": [
+                { "kind": "const", "value": [118, 97, 117, 108, 116, 95, 97, 117, 116, 104, 111, 114, 105, 116, 121] }
+              ]
+            }
+          },
+          { "name": "patient_wallet" },
+          { "name": "researcher", "writable": true, "signer": true },
+          { "name": "token_program", "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA" }
+        ],
+        "args": [
+          { "name": "amount", "type": "u64" }
+        ]
+      }
+    ],
+    "accounts": [
+      {
+        "name": "ConsentRecord",
+        "discriminator": [128, 140, 241, 13, 201, 137, 243, 22]
+      }
+    ],
+    "types": [
+      {
+        "name": "ConsentRecord",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            { "name": "patient", "type": "pubkey" },
+            { "name": "agreement_hash", "type": { "array": ["u8", 32] } },
+            { "name": "is_verified", "type": "bool" },
+            { "name": "bump", "type": "u8" }
+          ]
+        }
+      }
+    ],
+    "errors": [
+      {
+        "code": 6000,
+        "name": "UnauthorizedResearcher",
+        "msg": "Only the authorized researcher can verify and pay rewards."
+      }
+    ]
+  }
+  
