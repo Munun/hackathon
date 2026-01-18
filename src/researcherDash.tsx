@@ -1,9 +1,32 @@
-import { BarChart3, Users, Globe, ShieldCheck } from 'lucide-react';
-import { motion} from 'framer-motion';
+import { BarChart3, Users, Globe, ShieldCheck, Upload } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function ResearcherDash() {
+  const goToUpload = () => {
+    // This assumes upload-record.html is served from /public
+    window.location.href = "/upload-record.html";
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-10 py-12">
+      
+      {/* Header */}
+      <div className="flex justify-between items-center mb-12">
+        <div>
+          <h2 className="text-3xl font-black text-white">Researcher Dashboard</h2>
+          <p className="text-slate-500 text-sm">Clinical trial matching overview</p>
+        </div>
+
+        {/* Upload Button */}
+        <button
+          onClick={goToUpload}
+          className="flex items-center gap-2 px-5 py-3 rounded-full bg-indigo-500 text-white font-bold hover:bg-indigo-600 transition-all shadow-lg"
+        >
+          <Upload size={18} />
+          Upload Patient Record
+        </button>
+      </div>
+
       {/* Header Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
         <StatCard icon={<Users />} label="Total Matched" value="1,284" color="text-indigo-400" />
@@ -13,37 +36,44 @@ export default function ResearcherDash() {
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
-        {/* Main Candidate Table */}
+        {/* Candidate Table */}
         <div className="lg:col-span-2 p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/10">
           <div className="flex justify-between items-center mb-8">
-             <h3 className="text-xl font-bold text-white">Anonymized Candidate Pool</h3>
-             <span className="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full uppercase tracking-wider">Live Updates</span>
+            <h3 className="text-xl font-bold text-white">Anonymized Candidate Pool</h3>
+            <span className="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full uppercase tracking-wider">
+              Live Updates
+            </span>
           </div>
+
           <div className="space-y-4">
-             <CandidateRow id="DID: 0x82...a1" match={98} tag="Underrepresented Group" />
-             <CandidateRow id="DID: 0xf3...c4" match={92} tag="Regional Priority" />
-             <CandidateRow id="DID: 0xa9...b2" match={89} tag="General Health" />
+            <CandidateRow id="DID: 0x82...a1" match={98} tag="Underrepresented Group" />
+            <CandidateRow id="DID: 0xf3...c4" match={92} tag="Regional Priority" />
+            <CandidateRow id="DID: 0xa9...b2" match={89} tag="General Health" />
           </div>
         </div>
 
-        {/* Diversity Breakdown Visual */}
+        {/* Diversity Breakdown */}
         <div className="p-8 rounded-[2.5rem] bg-indigo-500/5 border border-indigo-500/10 flex flex-col justify-between">
-           <div>
-             <h3 className="text-xl font-bold text-white mb-2">Diversity Metrics</h3>
-             <p className="text-sm text-slate-500">Real-time demographic distribution based on Gemini AI extraction.</p>
-           </div>
-           <div className="space-y-4 mt-8">
-              <ProgressBar label="Ethnic Diversity" progress={88} />
-              <ProgressBar label="Socioeconomic Reach" progress={72} />
-              <ProgressBar label="Age Distribution" progress={95} />
-           </div>
+          <div>
+            <h3 className="text-xl font-bold text-white mb-2">Diversity Metrics</h3>
+            <p className="text-sm text-slate-500">
+              Real-time demographic distribution based on AI extraction.
+            </p>
+          </div>
+
+          <div className="space-y-4 mt-8">
+            <ProgressBar label="Ethnic Diversity" progress={88} />
+            <ProgressBar label="Socioeconomic Reach" progress={72} />
+            <ProgressBar label="Age Distribution" progress={95} />
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-// Sub-components to keep clean
+// --- Sub-components ---
+
 const StatCard = ({ icon, label, value, color }: any) => (
   <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/5">
     <div className={`${color} mb-3`}>{icon}</div>
@@ -59,8 +89,8 @@ const CandidateRow = ({ id, match, tag }: any) => (
       <span className="font-mono text-xs text-slate-400">{id}</span>
     </div>
     <div className="flex items-center gap-4">
-       <span className="text-[10px] text-indigo-400 font-bold uppercase">{tag}</span>
-       <span className="text-white font-bold">{match}% Match</span>
+      <span className="text-[10px] text-indigo-400 font-bold uppercase">{tag}</span>
+      <span className="text-white font-bold">{match}% Match</span>
     </div>
   </div>
 );
@@ -72,7 +102,7 @@ const ProgressBar = ({ label, progress }: any) => (
       <span>{progress}%</span>
     </div>
     <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-      <motion.div 
+      <motion.div
         initial={{ width: 0 }}
         whileInView={{ width: `${progress}%` }}
         className="h-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.4)]"

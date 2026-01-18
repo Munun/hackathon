@@ -1,123 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Medical Record - PharmaCluster</title>
-    <link rel="stylesheet" href="upload-record.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Patients - PharmaTrace</title>
+  <link rel="stylesheet" href="upload-record.css" />
 </head>
+
 <body>
-    <div class="container">
-        <header>
-            <h1>Upload Your Medical Record</h1>
-            <p>Enter your health information to match with clinical trials</p>
-        </header>
+  <div class="page">
+    <div class="bg-grid"></div>
 
-        <form id="uploadForm">
-            <!-- Wallet Address -->
-            <section class="form-section">
-                <h2>Wallet Information</h2>
-                <div class="form-group">
-                    <label for="wallet_address">Solana Wallet Address *</label>
-                    <input type="text" id="wallet_address" name="wallet_address" required 
-                           placeholder="Enter your Solana public key">
-                </div>
-            </section>
+    <nav class="nav">
+      <a class="brand" href="/">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span class="brand-name">PharmaTrace</span>
+      </a>
 
-            <!-- Demographics -->
-            <section class="form-section">
-                <h2>Demographics</h2>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="age_group">Age Group *</label>
-                        <select id="age_group" name="age_group" required>
-                            <option value="">Select age group</option>
-                            <option value="18-29">18-29</option>
-                            <option value="30-39">30-39</option>
-                            <option value="40-49">40-49</option>
-                            <option value="50-59">50-59</option>
-                            <option value="60-69">60-69</option>
-                            <option value="70+">70+</option>
-                        </select>
-                    </div>
+      <div class="nav-actions">
+        <a class="nav-link" href="/">Back to App</a>
+        <a class="nav-pill" href="/upload-record.html">Find Patients</a>
+      </div>
+    </nav>
 
-                    <div class="form-group">
-                        <label for="gender">Gender *</label>
-                        <select id="gender" name="gender" required>
-                            <option value="">Select gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Non-binary">Non-binary</option>
-                            <option value="Prefer not to say">Prefer not to say</option>
-                        </select>
-                    </div>
+    <main class="container">
+      <header class="header">
+        <div class="kicker">
+          <span class="dot"></span>
+          <span class="kicker-text">Researcher Portal</span>
+        </div>
 
-                    <div class="form-group">
-                        <label for="ethnicity">Ethnicity</label>
-                        <input type="text" id="ethnicity" name="ethnicity" 
-                               placeholder="e.g., Caucasian, Hispanic, Asian">
-                    </div>
-                </div>
-            </section>
+        <h1 class="title">Find Suitable Patients</h1>
+        <p class="subtitle">
+          Set eligibility criteria to return a targeted list of anonymized candidates. Use ranges to match typical trial inclusion criteria.
+        </p>
+      </header>
 
-            <!-- Medical Conditions -->
-            <section class="form-section">
-                <h2>Medical Conditions</h2>
-                <div class="form-group">
-                    <label for="medical_conditions">Medical Conditions</label>
-                    <textarea id="medical_conditions" name="medical_conditions" rows="4"
-                              placeholder="Enter your medical conditions, separated by commas (e.g., Type 2 Diabetes, Asthma, Hypertension)"></textarea>
-                    <small>Separate multiple conditions with commas</small>
-                </div>
-            </section>
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Eligibility Criteria</h2>
+            <p class="card-subtitle">Choose ranges + filters, then request a specific number of candidates.</p>
+          </div>
+          <span class="status-pill">Live</span>
+        </div>
 
-            <!-- Current Medications -->
-            <section class="form-section">
-                <h2>Current Medications</h2>
-                <div class="form-group">
-                    <label for="current_medications">Current Medications</label>
-                    <textarea id="current_medications" name="current_medications" rows="4"
-                              placeholder="Enter your current medications, separated by commas (e.g., Metformin, Lisinopril, Aspirin)"></textarea>
-                    <small>Separate multiple medications with commas</small>
-                </div>
-            </section>
+        <form id="criteriaForm" class="form" autocomplete="off">
+          <!-- Candidate request -->
+          <div class="section">
+            <h3 class="section-title">Request</h3>
 
-            <!-- Health Metrics -->
-            <section class="form-section">
-                <h2>Health Metrics</h2>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="bmi">BMI (Body Mass Index)</label>
-                        <input type="number" id="bmi" name="bmi" step="0.1" min="10" max="60"
-                               placeholder="e.g., 24.5">
-                    </div>
+            <div class="grid-2">
+              <div class="field">
+                <label for="candidate_limit">Number of candidates *</label>
+                <select id="candidate_limit" name="candidate_limit" required>
+                  <option value="">Select amount</option>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+                <p class="hint">We’ll return up to this many candidates (based on matches available).</p>
+              </div>
 
-                    <div class="form-group">
-                        <label for="blood_pressure">Blood Pressure</label>
-                        <input type="text" id="blood_pressure" name="blood_pressure"
-                               placeholder="e.g., 120/80">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="last_hba1c_level">Last HbA1c Level (%)</label>
-                        <input type="number" id="last_hba1c_level" name="last_hba1c_level" 
-                               step="0.1" min="4" max="15"
-                               placeholder="e.g., 5.7">
-                    </div>
-                </div>
-            </section>
-
-            <!-- Submit Button -->
-            <div class="form-actions">
-                <button type="submit" class="btn-primary">Submit Record</button>
-                <button type="reset" class="btn-secondary">Clear Form</button>
+              <div class="field">
+                <label for="study_type">Study type</label>
+                <select id="study_type" name="study_type">
+                  <option value="Any" selected>Any</option>
+                  <option value="Observational">Observational</option>
+                  <option value="Interventional">Interventional</option>
+                  <option value="Phase I">Phase I</option>
+                  <option value="Phase II">Phase II</option>
+                  <option value="Phase III">Phase III</option>
+                  <option value="Phase IV">Phase IV</option>
+                </select>
+              </div>
             </div>
+          </div>
+
+          <!-- Demographics -->
+          <div class="section">
+            <h3 class="section-title">Demographics</h3>
+
+            <div class="grid-3">
+              <div class="field">
+                <label for="age_range">Age range *</label>
+                <select id="age_range" name="age_range" required>
+                  <option value="">Select age range</option>
+                  <option value="18-29">18–29</option>
+                  <option value="30-39">30–39</option>
+                  <option value="40-49">40–49</option>
+                  <option value="50-59">50–59</option>
+                  <option value="60-69">60–69</option>
+                  <option value="70+">70+</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender">
+                  <option value="Any" selected>Any</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Non-binary">Non-binary</option>
+                  <option value="Prefer not to say">Prefer not to say</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="ethnicity_group">Ethnicity group</label>
+                <select id="ethnicity_group" name="ethnicity_group">
+                  <option value="Any" selected>Any</option>
+                  <option value="Black">Black / African descent</option>
+                  <option value="East Asian">East Asian</option>
+                  <option value="South Asian">South Asian</option>
+                  <option value="White">White / European descent</option>
+                  <option value="Hispanic">Hispanic / Latino</option>
+                  <option value="Indigenous">Indigenous</option>
+                  <option value="Middle Eastern">Middle Eastern</option>
+                  <option value="Mixed/Other">Mixed / Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Condition + meds -->
+          <div class="section">
+            <h3 class="section-title">Clinical Criteria</h3>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="primary_condition">Primary condition *</label>
+                <select id="primary_condition" name="primary_condition" required>
+                  <option value="">Select a condition</option>
+                  <option value="Type 2 Diabetes">Type 2 Diabetes</option>
+                  <option value="Hypertension">Hypertension</option>
+                  <option value="Asthma">Asthma</option>
+                  <option value="COPD">COPD</option>
+                  <option value="Depression">Depression</option>
+                  <option value="Anxiety">Anxiety</option>
+                  <option value="Obesity">Obesity</option>
+                  <option value="Chronic Kidney Disease">Chronic Kidney Disease</option>
+                  <option value="Coronary Artery Disease">Coronary Artery Disease</option>
+                  <option value="Rheumatoid Arthritis">Rheumatoid Arthritis</option>
+                  <option value="Other">Other / Unspecified</option>
+                </select>
+                <p class="hint">Start with the main inclusion condition.</p>
+              </div>
+
+              <div class="field">
+                <label for="condition_severity">Severity / stage</label>
+                <select id="condition_severity" name="condition_severity">
+                  <option value="Any" selected>Any</option>
+                  <option value="Mild">Mild</option>
+                  <option value="Moderate">Moderate</option>
+                  <option value="Severe">Severe</option>
+                  <option value="Stage 1">Stage 1</option>
+                  <option value="Stage 2">Stage 2</option>
+                  <option value="Stage 3">Stage 3</option>
+                  <option value="Stage 4">Stage 4</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="medication_class">Current medication class</label>
+                <select id="medication_class" name="medication_class">
+                  <option value="Any" selected>Any</option>
+                  <option value="Metformin">Metformin (biguanide)</option>
+                  <option value="Insulin">Insulin</option>
+                  <option value="GLP-1">GLP-1 agonist</option>
+                  <option value="SGLT2">SGLT2 inhibitor</option>
+                  <option value="ACEi/ARB">ACE inhibitor / ARB</option>
+                  <option value="Beta Blocker">Beta blocker</option>
+                  <option value="Statin">Statin</option>
+                  <option value="Inhaled Corticosteroid">Inhaled corticosteroid</option>
+                  <option value="SSRI/SNRI">SSRI / SNRI</option>
+                  <option value="None">None</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="smoking_status">Smoking status</label>
+                <select id="smoking_status" name="smoking_status">
+                  <option value="Any" selected>Any</option>
+                  <option value="Never">Never</option>
+                  <option value="Former">Former</option>
+                  <option value="Current">Current</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ranges -->
+          <div class="section">
+            <h3 class="section-title">Health Metrics (Ranges)</h3>
+
+            <div class="grid-3">
+              <div class="field">
+                <label for="bmi_range">BMI range</label>
+                <select id="bmi_range" name="bmi_range">
+                  <option value="Any" selected>Any</option>
+                  <option value="<18.5">Underweight (&lt;18.5)</option>
+                  <option value="18.5-24.9">Normal (18.5–24.9)</option>
+                  <option value="25-29.9">Overweight (25–29.9)</option>
+                  <option value="30-34.9">Obesity I (30–34.9)</option>
+                  <option value="35-39.9">Obesity II (35–39.9)</option>
+                  <option value="40+">Obesity III (40+)</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="bp_range">Blood pressure range</label>
+                <select id="bp_range" name="bp_range">
+                  <option value="Any" selected>Any</option>
+                  <option value="Normal">&lt;120 / &lt;80 (Normal)</option>
+                  <option value="Elevated">120–129 / &lt;80 (Elevated)</option>
+                  <option value="Stage 1">130–139 or 80–89 (Stage 1)</option>
+                  <option value="Stage 2">≥140 or ≥90 (Stage 2)</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="hba1c_range">HbA1c range</label>
+                <select id="hba1c_range" name="hba1c_range">
+                  <option value="Any" selected>Any</option>
+                  <option value="<5.7">&lt;5.7 (Normal)</option>
+                  <option value="5.7-6.4">5.7–6.4 (Prediabetes)</option>
+                  <option value="6.5-7.9">6.5–7.9 (Diabetes controlled)</option>
+                  <option value="8.0+">8.0+ (Diabetes uncontrolled)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="exclusion_flags">Exclusions</label>
+              <select id="exclusion_flags" name="exclusion_flags" multiple>
+                <option value="pregnant">Pregnancy</option>
+                <option value="immunocompromised">Immunocompromised</option>
+                <option value="active_cancer">Active cancer</option>
+                <option value="renal_failure">Renal failure</option>
+                <option value="liver_disease">Liver disease</option>
+                <option value="recent_surgery">Recent surgery (&lt;90 days)</option>
+                <option value="substance_use">Substance use disorder</option>
+              </select>
+              <p class="hint">Hold Ctrl/Cmd to select multiple exclusions.</p>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="btn btn-primary">Find Candidates</button>
+            <button type="reset" class="btn btn-secondary">Clear</button>
+          </div>
+
+          <div id="message" class="message hidden"></div>
+
+          <div id="results" class="results hidden">
+            <div class="results-header">
+              <h3 class="results-title">Candidate Results</h3>
+              <p class="results-subtitle">Returned candidates are anonymized and intended for screening.</p>
+            </div>
+            <div id="resultsList" class="results-list"></div>
+          </div>
         </form>
+      </section>
 
-        <!-- Success/Error Messages -->
-        <div id="message" class="message hidden"></div>
-    </div>
+      <footer class="footer">
+        <div class="footer-left">
+          <span class="footer-dot"></span>
+          <span>PharmaTrace • Researcher matching</span>
+        </div>
+        <div class="footer-right">
+          <span class="small">Implement <code>/api/find-candidates</code> in server.js to power this page</span>
+        </div>
+      </footer>
+    </main>
+  </div>
 
-    <script src="upload-record.js"></script>
+  <script src="upload-record.js"></script>
 </body>
 </html>
+
